@@ -1,0 +1,194 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: grab;
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+:root {
+  --size: 64px;
+  --angle-Y: 45deg;
+  --angle-X: -30deg;
+
+  --animation-duration: 3s;
+
+  --color-top-bottom: #3eb4c5;
+  --color-left-right: #e3483a;
+  --color-front-back: #f1a912;
+}
+
+.cubes {
+  position: relative;
+  top: var(--size);
+  transform-style: preserve-3d;
+  transform: rotateX(var(--angle-X)) rotateY(var(--angle-Y));
+  width: calc(var(--size) * 3);
+  height: calc(var(--size) * 2);
+  transform-origin: calc((var(--size) * 3) / 2) 0 var(--size);
+  pointer-events: none;
+
+  .cube {
+    position: absolute;
+    transform-style: preserve-3d;
+    animation-duration: var(--animation-duration);
+    animation-iteration-count: infinite;
+
+    & > [class^="pane-"] {
+      position: absolute;
+      width: var(--size);
+      height: var(--size);
+    }
+
+    @for $i from 1 through 8 {
+      &:nth-child(#{$i}) {
+        animation-name: cube-#{$i};
+      }
+    }
+  }
+}
+
+.pane-top, .pane-bottom {
+  background: var(--color-top-bottom);
+}
+.pane-left, .pane-right {
+  background: var(--color-left-right);
+}
+.pane-front, .pane-back {
+  background: var(--color-front-back);
+}
+
+.pane-back {
+  transform: translate3d(0, 0, var(--size));
+}
+.pane-left {
+  transform: translate3d(calc(var(--size) / -2), 0px, calc(var(--size) / 2)) rotateY(90deg);
+}
+.pane-right {
+  transform: translate3d(calc(var(--size) / 2), 0px, calc(var(--size) / 2)) rotateY(90deg);
+}
+.pane-top {
+  transform: translate3d(0px, calc(var(--size) / 2), calc(var(--size) / 2)) rotateX(90deg);
+}
+.pane-bottom {
+  transform: translate3d(0px, calc(var(--size) / -2), calc(var(--size) / 2)) rotateX(90deg);
+}
+
+@keyframes cube-1 {
+  0% {
+    transform: translate3d(0, 0, var(--size));
+  }
+  25% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, calc(var(--size) * -1), 0);
+  }
+  75% {
+    transform: translate3d(0, calc(var(--size) * -1), var(--size));
+  }
+  100% {
+    transform: translate3d(var(--size), calc(var(--size) * -1), var(--size));
+  }
+}
+@keyframes cube-2 {
+  0% {
+    transform: translate3d(0, calc(var(--size) * -1), 0);
+  }
+  25% {
+    transform: translate3d(0, calc(var(--size) * -1), var(--size));
+  }
+  50% {
+    transform: translate3d(0, 0, var(--size));
+  }
+  75% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(var(--size), 0, 0);
+  }
+}
+@keyframes cube-3 {
+  0% {
+    transform: translate3d(var(--size), 0, 0);
+  }
+  75% {
+    transform: translate3d(var(--size), 0, 0);
+  }
+  100% {
+    transform: translate3d(calc(var(--size) * 2), 0, 0);
+  }
+}
+@keyframes cube-4 {
+  0% {
+    transform: translate3d(var(--size), 0, var(--size));
+  }
+  75% {
+    transform: translate3d(var(--size), 0, var(--size));
+  }
+  100% {
+    transform: translate3d(0, 0, var(--size));
+  }
+}
+@keyframes cube-5 {
+  0% {
+    transform: translate3d(var(--size), calc(var(--size) * -1), 0);
+  }
+  75% {
+    transform: translate3d(var(--size), calc(var(--size) * -1), 0);
+  }
+  100% {
+    transform: translate3d(0, calc(var(--size) * -1), 0);
+  }
+}
+@keyframes cube-6 {
+  0% {
+    transform: translate3d(var(--size), calc(var(--size) * -1), var(--size));
+  }
+  75% {
+    transform: translate3d(var(--size), calc(var(--size) * -1), var(--size));
+  }
+  100% {
+    transform: translate3d(calc(var(--size) * 2), calc(var(--size) * -1), var(--size));
+  }
+}
+@keyframes cube-7 {
+  0% {
+    transform: translate3d(calc(var(--size) * 2), calc(var(--size) * -1), var(--size));
+  }
+  25% {
+    transform: translate3d(calc(var(--size) * 2), calc(var(--size) * -1), 0);
+  }
+  50% {
+    transform: translate3d(calc(var(--size) * 2), 0, 0);
+  }
+  75% {
+    transform: translate3d(calc(var(--size) * 2), 0, var(--size));
+  }
+  100% {
+    transform: translate3d(var(--size), 0, var(--size));
+  }
+}
+@keyframes cube-8 {
+  0% {
+    transform: translate3d(calc(var(--size) * 2), 0, 0);
+  }
+  25% {
+    transform: translate3d(calc(var(--size) * 2), 0, var(--size));
+  }
+  50% {
+    transform: translate3d(calc(var(--size) * 2), calc(var(--size) * -1), var(--size));
+  }
+  75% {
+    transform: translate3d(calc(var(--size) * 2), calc(var(--size) * -1), 0);
+  }
+  100% {
+    transform: translate3d(var(--size), calc(var(--size) * -1), 0);
+  }
+}
